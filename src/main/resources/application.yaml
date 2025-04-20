@@ -5,6 +5,20 @@ spring:
   application:
     name: notification-service
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.json.value.default.type: ru.kolpakovee.notification_service.records.NotificationEvent
+
+
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5437/notifications_db}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -23,10 +37,7 @@ spring:
         jwt:
           issuer-uri: ${SECURITY_RESOURCE_SERVER_URL:http://localhost:8080/realms/vmeste.tech}
 
-integration:
-  services:
-    user-service:
-      url: ${INTEGRATION_USER_SERVICE_URL:http://localhost:8082}
-      name: ${INTEGRATION_USER_SERVICE_NAME:user-service}
+
+
 
 
