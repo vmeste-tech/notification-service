@@ -8,8 +8,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ru.kolpakovee.notification_service.records.NotificationSettingDto;
 import ru.kolpakovee.notification_service.services.NotificationSettingService;
-
-import java.util.UUID;
+import ru.kolpakovee.notification_service.utils.JwtUtils;
 
 @CrossOrigin
 @RestController
@@ -23,12 +22,12 @@ public class NotificationSettingController {
 
     @GetMapping
     public NotificationSettingDto getSetting(@AuthenticationPrincipal Jwt jwt) {
-        String userId = jwt.getSubject();
-        return settingService.getSetting(UUID.fromString(userId));
+        return settingService.getSetting(JwtUtils.getUserId(jwt));
     }
 
     @PutMapping("/update")
-    public NotificationSettingDto updateSetting(@RequestBody NotificationSettingDto request) {
-        return settingService.updateSetting(request);
+    public NotificationSettingDto updateSetting(@AuthenticationPrincipal Jwt jwt,
+                                                @RequestBody NotificationSettingDto request) {
+        return settingService.updateSetting(JwtUtils.getUserId(jwt), request);
     }
 }

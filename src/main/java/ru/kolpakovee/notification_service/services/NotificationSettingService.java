@@ -29,8 +29,8 @@ public class NotificationSettingService {
         return NotificationSettingMapper.INSTANCE.toDto(newSetting);
     }
 
-    public NotificationSettingDto updateSetting(NotificationSettingDto setting) {
-        NotificationSettingEntity settingEntity = NotificationSettingMapper.INSTANCE.toEntity(setting);
+    public NotificationSettingDto updateSetting(UUID userId, NotificationSettingDto setting) {
+        NotificationSettingEntity settingEntity = NotificationSettingMapper.INSTANCE.toEntity(userId, setting);
         return NotificationSettingMapper.INSTANCE.toDto(repository.save(settingEntity));
     }
 }

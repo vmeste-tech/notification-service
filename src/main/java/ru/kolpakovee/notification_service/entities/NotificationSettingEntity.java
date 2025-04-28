@@ -15,9 +15,9 @@ import java.util.UUID;
 public class NotificationSettingEntity {
     @Id
     private UUID userId;
-    private boolean taskEnabled = false;
-    private boolean financeEnabled = false;
-    private boolean penaltyEnabled = false;
-    private boolean ruleEnabled = false;
-    private boolean userEnabled = false;
+    private boolean taskEnabled = true;
+    private boolean financeEnabled = true;
+    private boolean penaltyEnabled = true;
+    private boolean ruleEnabled = true;
+    private boolean userEnabled = true;
 }
